@@ -3,9 +3,9 @@
 #define _INPUT_H_
 
 #define EXIT_IF_FAIL(expr) \
-if (!expr) \
+if (!(expr)) \
 { \
-    printf("ERROR: [%s:%d]" #expr "\n", __func__, __LINE__); \
+    printf("ERROR: [%s:%d]" #expr " \n", __func__, __LINE__); \
     exit(1); \
 }
 
@@ -23,12 +23,13 @@ if (ptr == NULL) \
     exit(1); \
 }
 
+#define EPOLLEVENTS 5
 typedef struct input_device  input_dev, *input_dev_ptr;
 
 struct input_device
 {
     int fd;
-    int name;
+    char name[256];
     
     input_dev_ptr next;
 };
