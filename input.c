@@ -31,7 +31,6 @@ void open_input_devices()
     {
         /* printf("file in directory %s: %s\n", dir_name, file->d_name); */
 
-        /* Do not consider mice events */
         if (file->d_name[0] == 'e')
         {
             char str[20];
@@ -129,8 +128,6 @@ int is_our_event(int fd)
     return 0;
 }
 
-
-
 int main()
 {
     struct epoll_event *events = NULL;
@@ -181,7 +178,7 @@ int main()
             else if (is_our_event(events[i].data.fd))
             {
 
-                printf("----------------\n");
+                printf("---------------->>\n");
                 int j = 0, num = 0;
                 printf("EVENT: fd:%d t:%d\n", events[i].data.fd, t++);
 
@@ -196,14 +193,11 @@ int main()
                 num = rd / sizeof(struct input_event);
 
                 printf("  num:%d\n", num);
-                printf("----------------\n\n");
+                printf("<<----------------\n\n");
         
 
                 for (j = 0; j < num; j++)
                     printf ("    %d: Type[%d] Code[%d] Value[%d]\n",  events[i].data.fd, ev[j].type, ev[j].code, ev[j].value);
-
-
-
             }
         }
     }
